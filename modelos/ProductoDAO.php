@@ -1,5 +1,5 @@
 <?php
-    require('../conexiones/conexion.php');
+    include ('../conexion/conexion.php');
     class ProductosDAO{
        public $id;
        public $nombre;
@@ -10,7 +10,9 @@
         $this->nombre=$nombre;
         $this->descripcion=$descripcion;
        } 
+
        function traerProducto(){
+       
         $conn = new Conexion('localhost', 'root', '', 'crud_base_php');  /* variables de coneccion  */
         try {
             $conexion = $conn->Conectar();
@@ -22,6 +24,7 @@
             echo "Error al conectarse ->" . $e;
         }
        }
+
        function eliminarProducto($id){
         $conn = new Conexion('localhost', 'root', '', 'crud_base_php');
         try {
@@ -33,5 +36,22 @@
             echo "Error al conectarse ->" . $e;
         }
        }
+       
+       function agregarProducto($id, $nombre,$descripcion){
+        $conn = new Conexion('localhost', 'root', '', 'crud_base_php');
+        try {
+            $conexion = $conn->Conectar();
+
+
+        } catch (PDOException $e) {
+            echo "Error al conectarse ->" . $e;
+        }
+
+
+       }
+
+
+
+
     }
 ?>
