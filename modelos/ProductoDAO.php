@@ -41,7 +41,11 @@
         $conn = new Conexion('localhost', 'root', '', 'crud_base_php');
         try {
             $conexion = $conn->Conectar();
-
+            $agregar = $conn->prepare("INSERT INTO productos (`id`, `nombre`, `descripcion`) VALUES (?, ?, ?)");
+            $agregar->bindParam(1, $id);
+            $agregar->bindParam(2, $nombre);
+            $agregar->bindParam(3, $descripcion);
+            $agregar->execute();
 
         } catch (PDOException $e) {
             echo "Error al conectarse ->" . $e;

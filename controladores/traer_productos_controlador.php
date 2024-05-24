@@ -2,6 +2,7 @@
     include('../modelos/ProductoDAO.php');
     $productoDAO = new ProductosDAO();
     $productos = $productoDAO->traerProducto();
+    
     /*  esto es para que los cataracteres no generen problema, como la ñ  */
     $i=0;
     foreach( $productos as $value){

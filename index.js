@@ -18,12 +18,43 @@ function cargarDatos() {
         });
       });
   }
-  function eliminarProducto(id) {
-/*     fetch("./controladores/eliminar_producto_controlador.php?id=" + id)
+
+function eliminarProducto(id) {
+    fetch("./controladores/eliminar_producto_controlador.php?id=" + id)
       .then((response) => response.text())
       .then((data) => {
         alert("Ok");
-      }); */
-      alert ("eliminar "+ id)
+      }); 
+   /*   alert ("eliminar "+ id) */
   }
+
+ function agregarProducto(){
+  const id = document.getElementById("id").value;
+  const nombre = document.getElementById("nombre").value;
+  const descripcion = document.getElementById("descripcion").value;
+
+  fetch(
+      `./controladores/agregar_producto_controlador.php?id=${id}&nombre=${nombre}&descripcion=${descripcion}`
+    )
+      .then((response) => {
+        return response.text();
+      })
+      .then((data) => {
+        cargarDatos();
+        mostrarAlerta("Se agrego con exito")
+        console.log(data);
+        document.getElementById("id").value = "";
+        document.getElementById("nombre").value = "";
+        document.getElementById("descripcion").value = "";
+      });
+ }
+
+
+
+
+
+
+
+
+
   cargarDatos();
