@@ -22,16 +22,30 @@
 
     switch ($method) {
         case 'GET':
-            # code...
+            $data = $class->traerProducto();
+            echo(json_encode($data))
             break;
         case 'POST':
             $data = json_decode(file_get_contents('php://input'),true);
-            $clases = $class->guardarProducto($_data['nombre'],$_data['descripcion']);
-            echo(json_encode($clases))
+            $resultado = $class->guardarProducto($_data['nombre'],$_data['descripcion']);
+            echo(json_encode($resultado));
+            break;
+        
+        case 'DELETE':
+            $data = json_decode(file_get_contents('php://input'),true);
+            $resultado = $class->guardarProducto($_data['nombre'],$_data['descripcion']);
+            echo(json_encode($resultado));
+            break;
+        
+        case 'PUT':
+            $data = json_decode(file_get_contents('php://input'),true);
+            $resultado = $class->actualizarProducto($_data['id'],$_data['nombre'],$_data['descripcion']);
+            echo(json_encode($resultado));
             break;
         
         default:
-            # code...
+            http_response_code(405)
+            echo json_encode(array("message"=>"Metodo no permitido"));
             break;
     }
 

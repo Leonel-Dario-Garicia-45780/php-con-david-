@@ -11,7 +11,7 @@
         $this->descripcion=$descripcion;
        } 
 
-       function traerProducto(){
+        function traerProducto(){
        
         $conn = new Conexion('localhost', 'root', '', 'crud_base_php');  /* variables de coneccion  */
         try {
@@ -23,7 +23,7 @@
         } catch (PDOException $e) {
             echo "Error al conectarse ->" . $e;
         }
-       }
+        }
 
        function eliminarProducto($id){
         $conn = new Conexion('localhost', 'root', '', 'crud_base_php');
@@ -51,10 +51,19 @@
             echo "Error al conectarse ->" . $e;
         }
 
-
        }
 
-
+       function actualizarProducto($id, $nombre, $descripcion) {
+        $conexion = new Conexion('localhost', 'root', '', 'MiguelBd');
+        try {
+            $conn = $conexion->Conectar(); 
+            $agregar = $conn->prepare("UPDATE productos SET nombre='$nombre', descripcion='$descripcion' WHERE id =$id");
+            $agregar->execute();
+            return "Actualizado Exitosamente";
+        } catch(PDOException $e) {
+            return "Error al conectar a la base de datos: " . $e->getMessage();
+        }
+    }
 
 
     }

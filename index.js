@@ -28,7 +28,18 @@ function eliminarProducto(id) {
    /*   alert ("eliminar "+ id) */
   }
 
- function agregarProducto(){
+function guardarClase(id, nombre, descripcion) {
+    fetch(
+      `./Controller/guardarClaseController.php?id=${id}&nombre=${nombre}&descripcion=${descripcion}`
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        limpiarFormulario();
+        cargarDatos();
+      });
+}
+
+function agregarProducto(){
   const id = document.getElementById("id").value;
   const nombre = document.getElementById("nombre").value;
   const descripcion = document.getElementById("descripcion").value;
@@ -47,10 +58,18 @@ function eliminarProducto(id) {
         document.getElementById("nombre").value = "";
         document.getElementById("descripcion").value = "";
       });
- }
+}
 
 
+function mostrarAlerta(mensaje) {
+  var alerta = document.getElementById("alerMessange");
+  alerta.innerHTML = mensaje;
+  alerta.hidden = false;
 
+  setTimeout(function() {
+    alerta.hidden = true;
+  }, 1000); 
+}
 
 
 
