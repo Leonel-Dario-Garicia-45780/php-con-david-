@@ -47,6 +47,7 @@
             $agregar->bindParam(':nombre', $nombre, PDO::PARAM_STR);
             $agregar->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
             $agregar->execute();
+            return "Producto agregado correctamente";
 
         } catch (PDOException $e) {
             echo "Error al conectarse ->" . $e;
