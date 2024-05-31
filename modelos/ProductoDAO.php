@@ -56,7 +56,7 @@
        }
 
        function actualizarProducto($id, $nombre, $descripcion) {
-        $conexion = new Conexion('localhost', 'root', '', 'MiguelBd');
+        $conexion = new Conexion('localhost', 'root', '', 'crud_base_php');
         try {
             $conn = $conexion->Conectar(); 
             $agregar = $conn->prepare("UPDATE productos SET nombre='$nombre', descripcion='$descripcion' WHERE id =$id");
@@ -66,6 +66,20 @@
             return "Error al conectar a la base de datos: " . $e->getMessage();
         }
     }
+
+    function traer_un_Producto ($id){
+        $conexion = new Conexion ('localhost', 'root', '', 'crud_base_php');
+        try {
+            $conn = $conexion->Conectar();
+            $stmt = $conn->query("SELECT * FROM productos WHERE id={$id}");
+            $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $rows;
+            $conexion->cerrarConexion();
+        } catch(PDOException $e) {
+            echo "Error al conectarse ->".$e->getMessage();
+        }
+      }
+
 
 
     }

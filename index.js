@@ -11,22 +11,34 @@ function cargarDatos() {
               <td>${row.nombre}</td>
               <td>${row.descripcion}</td>
               <td>
-                  <button onclick= eliminarProducto(${row.id})>eliminar</button>
+                  <button onclick='traerProducto(${row.id})' type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" >Actualizar</button>
+        
+                  <button onclick= eliminarProducto(${row.id}) class="btn btn-dark" >eliminar</button>
               </td>
               `;
           tablaDatos.appendChild(tr);
         });
       });
-  }
+}
+
+function limpiarFormulario() {
+  var inputCodigo = document.getElementById("id");
+  var inputNombre = document.getElementById("nombre");
+  var inputDescripcion = document.getElementById("descripcion");
+  inputCodigo.value = "";
+  inputNombre.value = "";
+  inputDescripcion.value = "";
+}
 
 function eliminarProducto(id) {
-    fetch("./controladores/eliminar_producto_controlador.php?id=" + id)
-      .then((response) => response.text())
-      .then((data) => {
-        alert("Ok");
-      }); 
-   /*   alert ("eliminar "+ id) */
-  }
+  fetch("./controladores/eliminar_producto_controlador.php?id=" + id)
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+      cargarDatos();
+      mostrarAlerta("Se elimino con exito")
+    });
+}
 
 
   
@@ -59,6 +71,45 @@ function eliminarProducto(id) {
   setTimeout(function() {
     alerta.hidden = true;
   }, 1000); 
+}
+
+
+function guardarProducto(id, nombre, descripcion) {
+  fetch(
+    `./controladores/actualizar_producto_controlador.php?id=${id}&nombre=${nombre}&descripcion=${descripcion}`
+  )
+    .then((response) => response.text())
+    .then((data) => {
+      limpiarFormulario();
+      cargarDatos();
+      mostrarAlerta(data);
+    });
+}
+
+function traerProducto(id) {
+  fetch(`./controladores/traer_producto_controlador.php?id=${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      var inputCodigo = document.getElementById("id");
+      var inputNombre = document.getElementById("nombre");
+      var inputDescripcion = document.getElementById("descripcion");
+      inputCodigo.value = data["id"];
+      inputNombre.value = data["nombre"];
+      inputDescripcion.value = data["descripcion"];
+    });
+
+  var boton = document.getElementById("Guardar");
+  boton.onclick = function () {
+    var inputCodigo = document.getElementById("id");
+    var inputNombre = document.getElementById("nombre");
+    var inputDescripcion = document.getElementById("descripcion");
+    var valId = inputCodigo.value;
+    var valNombre = inputNombre.value;
+    var valDescripcion = inputDescripcion.value;
+    limpiarFormulario();
+    guardarProducto(valId, valNombre, valDescripcion);
+  
+  };
 }
 
 

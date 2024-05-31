@@ -3,7 +3,7 @@
     $productoDAO = new ProductosDAO();
 
 if ($_REQUEST['id']=='') {
-    $productoDAO->agregarProducto($_GET['id'], $_GET['nombre'], $_GET['descripcion']);
+    $productoDAO->agregarProducto($_REQUEST['id'], $_REQUEST['nombre'], $_REQUEST['descripcion']);
 }else{
     $productoDAO->actualizarProducto($_REQUEST['id'],$_REQUEST['nombre'],$_REQUEST['descripcion']);
 }
