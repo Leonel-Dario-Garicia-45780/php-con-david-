@@ -1,6 +1,7 @@
 <?php
     include("../modelos/ProductoDAO.php");
     header("Acces-Control-Allow-Origin: *");
+    
     header("Content-Type: application/json");
     $method = $_SERVER['REQUEST_METHOD']
     $class= new ProductosDAO();

@@ -28,8 +28,8 @@ function eliminarProducto(id) {
    /*   alert ("eliminar "+ id) */
   }
 
-  
 
+  
  function agregarProducto(){
   const id = document.getElementById("id").value;
   const nombre = document.getElementById("nombre").value;
