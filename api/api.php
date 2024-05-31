@@ -1,5 +1,6 @@
 <?php
     include("../modelos/ProductoDAO.php");
+    header("Acces-Control-Allow-Origin: *");
     header("Content-Type: application/json");
     $method = $_SERVER['REQUEST_METHOD']
     $class= new ProductosDAO();
@@ -20,20 +21,34 @@
     // } 
 */
 
-    switch ($method) {
-        case 'GET':
-            # code...
-            break;
-        case 'POST':
-            $data = json_decode(file_get_contents('php://input'),true);
-            $clases = $class->guardarProducto($_data['nombre'],$_data['descripcion']);
-            echo(json_encode($clases))
-            break;
-        
-        default:
-            # code...
-            break;
-    }
+switch ($method) {
+    case 'GET':
+        $data = $class->traerProducto();
+        echo(json_encode($data))
+        break;
+    case 'POST':
+        $data = json_decode(file_get_contents('php://input'),true);
+        $resultado = $class->agregarProducto($_data['id'], $_data['nombre'],$_data['descripcion']);
+        echo(json_encode($resultado));
+        break;
+    
+    case 'DELETE':
+        $data = json_decode(file_get_contents('php://input'),true);
+        $resultado = $class->eliminarProducto($_data['id']/* ,$_data['descripcion'] */);
+        echo(json_encode($resultado));
+        break;
+    
+    case 'PUT':
+        $data = json_decode(file_get_contents('php://input'),true);
+        $resultado = $class->actualizarProducto($_data['id'],$_data['nombre'],$_data['descripcion']);
+        echo(json_encode($resultado));
+        break;
+    
+    default:
+        http_response_code(405)
+        echo json_encode(array("message"=>"Metodo no permitido"));
+        break;
+}
 
 
 ?>

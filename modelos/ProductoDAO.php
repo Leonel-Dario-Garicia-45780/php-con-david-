@@ -38,19 +38,19 @@
        }
        
        function agregarProducto($id, $nombre,$descripcion){
+        # cambios realizados con chat
         $conn = new Conexion('localhost', 'root', '', 'crud_base_php');
         try {
             $conexion = $conn->Conectar();
-            $agregar = $conn->prepare("INSERT INTO productos (`id`, `nombre`, `descripcion`) VALUES (?, ?, ?)");
-            $agregar->bindParam(1, $id);
-            $agregar->bindParam(2, $nombre);
-            $agregar->bindParam(3, $descripcion);
+            $agregar = $conexion->prepare('INSERT INTO productos (id, nombre, descripcion) VALUES (:id, :nombre, :descripcion)');
+            $agregar->bindParam(':id', $id, PDO::PARAM_INT);
+            $agregar->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $agregar->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
             $agregar->execute();
 
         } catch (PDOException $e) {
             echo "Error al conectarse ->" . $e;
         }
-
 
        }
 

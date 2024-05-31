@@ -28,6 +28,8 @@ function eliminarProducto(id) {
    /*   alert ("eliminar "+ id) */
   }
 
+  
+
  function agregarProducto(){
   const id = document.getElementById("id").value;
   const nombre = document.getElementById("nombre").value;
@@ -49,7 +51,15 @@ function eliminarProducto(id) {
       });
  }
 
+ function mostrarAlerta(mensaje) {
+  var alerta = document.getElementById("alerMessange");
+  alerta.innerHTML = mensaje;
+  alerta.hidden = false;
 
+  setTimeout(function() {
+    alerta.hidden = true;
+  }, 1000); 
+}
 
 
 
