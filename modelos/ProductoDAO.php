@@ -31,7 +31,8 @@
             $conexion = $conn->Conectar();
             $stmt = $conexion->prepare("DELETE FROM productos WHERE id = $id");
             $stmt->execute();
-            return "Exito";  
+            //! cambio esta parte para que devuleva una respuesta json
+            return json_encode(array("message" => "Producto eliminado exitosamente")); 
         } catch (PDOException $e) {
             echo "Error al conectarse ->" . $e;
         }
